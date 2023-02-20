@@ -22,7 +22,7 @@ struct Notification: View {
                         .foregroundColor(Color.white)
                         .padding(.leading)
                     Spacer()
-                    Button("+"){} .padding(.trailing).foregroundColor(Color.black).buttonBorderShape(ButtonBorderShape.roundedRectangle)
+                    Button("+"){} .foregroundColor(Color.black).buttonBorderShape(ButtonBorderShape.roundedRectangle)
                         .frame(width: UIScreen.main.bounds.width*1/8, height: UIScreen.main.bounds.width*1/8)
                         .background(Color.gray.edgesIgnoringSafeArea([]))
                         

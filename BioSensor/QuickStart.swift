@@ -7,8 +7,11 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 struct QuickStartGuideView: View {
+    @Environment(\.managedObjectContext) var moc
+    
     var body: some View {
         ZStack{
             Color.teal.edgesIgnoringSafeArea([.top])
@@ -16,6 +19,10 @@ struct QuickStartGuideView: View {
                 Text("This is our qsg")
                     .font(.title)
                     .fontWeight(.bold)
+                Button("TestDB"){
+                    DataController().createTilt(pitch:15.23,dateTime:Date.now)
+                }
+                Text(String(DataController().fetchTilt().count))
             }
             .frame(width: UIScreen.main.bounds.width*3/4, height: UIScreen.main.bounds.height*3/4)
         }

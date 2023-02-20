@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import Charts
-
+import CoreData
 
 /*
  ToDo: Currently pending on determining how the data is saved.
@@ -70,11 +70,8 @@ struct measurementRow:View{
 
 struct listView:View{
     
-    @State public var measurements = [
-        measurementData(date: Date.now.addingTimeInterval(-160000),data:"152.2"),
-        measurementData(date: Date.now.addingTimeInterval(-86400), data:"150"),
-        measurementData(date: Date.now,data:"22"),
-        ]
+    @StateObject private var dataController = DataController()
+    @State private var measurements = DataController().fetchTilt()
     
     var body:some View{
         VStack{ //Delete this line after data integration
@@ -82,8 +79,8 @@ struct listView:View{
             Chart {
                 ForEach(measurements,id:\.id) { item in
                     LineMark(
-                        x: .value("Month", item.date),
-                        y: .value("Temp", item.data)
+                        x: .value("Date", item.dateTime ?? Date.now),
+                        y: .value("Temp", item.pitch)
                     )
                 }
             }
@@ -97,21 +94,17 @@ struct listView:View{
             //Delete To Here
             NavigationView{
                 List{ForEach(measurements, id:\.id) {measure in
-                    measurementRow(measurement: measure)
+                    measurementRow(measurement:
+                                    measurementData(date: measure.dateTime ?? Date.now, data: String(measure.pitch))
+                    )
                 }.onDelete{
                     indexSet in
-                    measurements.remove(atOffsets:indexSet)
+                    print(indexSet)
+                    
                 }
                 } .navigationBarTitle("Data", displayMode: .inline)
             }
-            Button("Add Measurement"){getMeasurements()} //Delete this line after data integration
         } //Delete this line after data integration
-    }
-    
-    
-    //Remove Date reference during implementation
-    func getMeasurements(){
-        measurements.append(measurementData(date:Date.now, data:String(Int.random(in:1...100))))
     }
     
 }
