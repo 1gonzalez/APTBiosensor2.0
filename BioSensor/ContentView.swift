@@ -26,7 +26,7 @@ struct ContentView: View {
     @State private var textInput = ""
     var body: some View {
         TabView (selection: $tabSelection){
-            Measurement(currentDate:$currentDate,
+            Measurement(currentDate:currentDate,
                         reading:$readings, textInput:$textInput)
             .tabItem {
                 Label("Data", systemImage: "chart.xyaxis.line")
@@ -56,6 +56,7 @@ struct Reading: Identifiable {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
+//.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
