@@ -26,14 +26,13 @@ struct ContentView: View {
     @State private var textInput = ""
     var body: some View {
         TabView (selection: $tabSelection){
-            Measurement(currentDate:currentDate,
-                        reading:$readings, textInput:$textInput)
+            Measurement()
             .tabItem {
                 Label("Data", systemImage: "chart.xyaxis.line")
             }
             .tag(1)
             
-            MainMenu(tabSelection: $tabSelection)
+             MainMenu(tabSelection: $tabSelection)
                 .tabItem {
                     Label("Measure", systemImage: "bolt.heart")
                 }

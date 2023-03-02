@@ -21,9 +21,6 @@ import CoreData
 struct Measurement: View {
 
     @State var currentDate = Date.now
-    @Binding var reading:[Reading]
-    @Binding var textInput:String
-    @State var currentDateNSDate:NSDate = Date.now as NSDate
     var body: some View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
@@ -70,19 +67,38 @@ struct measurementRow:View{
 }
 
 struct listView:View{
-    @Binding var dateFilter:Date
-    
-    @Binding var amount: Double
+    var dateFilter:Binding<Date>
+    var dateSelected:Date
     @FetchRequest var fetchRequest: FetchedResults<Tilt>
     
-    
-    init(filter: Date) {
+    init(dateFilter:Binding<Date>){
+        self.dateFilter = dateFilter
+        self.dateSelected = dateFilter.wrappedValue
         _fetchRequest = FetchRequest<Tilt>(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Tilt.dateTime, ascending: true)],
-            predicate: NSPredicate(format: "dateTime >= %@ AND dateTime <= %@",Calendar.current.startOfDay(for: filter) as CVarArg,Calendar.current.startOfDay(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: filter), for: filter) as CVarArg),
-            animation: .default)
+                sortDescriptors: [NSSortDescriptor(keyPath: \Tilt.dateTime, ascending: true)],
+                predicate: NSPredicate(
+                    format: "dateTime >= %@ AND dateTime <= %@",
+                    Calendar.current.startOfDay(for: dateSelected) as CVarArg,
+                    Calendar.current.startOfDay(for: Calendar.current.date(
+                        byAdding:Calendar.Component.day,
+                        value: 1,
+                        to: Calendar.current.startOfDay(
+                            for: dateSelected)
+                    ) ?? Date.now) as CVarArg))
     }
-
+    /*
+    FetchRequest<Tilt>(
+            sortDescriptors: [NSSortDescriptor(keyPath: \Tilt.dateTime, ascending: true)],
+            predicate: NSPredicate(
+                format: "dateTime >= %@ AND dateTime <= %@",
+                Calendar.current.startOfDay(for: filter) as CVarArg,
+                Calendar.current.startOfDay(for: Calendar.current.date(
+                    byAdding:Calendar.Component.day,
+                    value: 1,
+                    to: Calendar.current.startOfDay(
+                        for: filter)
+                ) ?? Date.now) as CVarArg))
+*/
     @Environment(\.managedObjectContext) private var viewContext
     
     /*@FetchRequest(
@@ -90,38 +106,56 @@ struct listView:View{
         predicate: NSPredicate(format: "dateTime >= %@ AND dateTime <= %@",Calendar.current.startOfDay(for: dateFilter) as CVarArg,Calendar.current.startOfDay(for: dateFilter) as CVarArg),
         animation: .default
     )*/
-    private var items: FetchedResults<Tilt>
+   // private var items: FetchedResults<Tilt>
     
     
     var body:some View{
-        
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Gait Data")
-                    } label: {
-                        HStack{
-                            Text((item.dateTime ?? Date.now).formatted())
-                            Spacer()
-                            Text(item.pitch.description)
+        VStack{
+            Chart {
+                ForEach(fetchRequest,id:\.id) { item in
+                    LineMark(
+                        x: .value("Date", item.dateTime ?? Date.now),
+                        y: .value("Temp", item.pitch)
+                    )
+                }
+            }
+            .chartPlotStyle { plotContent in
+                plotContent
+                    .background(.white.opacity(1.0))
+                    .border(Color.blue, width: 2)
+            }
+            .frame(width: UIScreen.main.bounds.width*7/8, height: UIScreen.main.bounds.height*1/3)
+            
+            Spacer()
+            
+            NavigationView {
+                List {
+                    ForEach(fetchRequest) { item in
+                        NavigationLink {
+                            Text("Gait Data")
+                        } label: {
+                            HStack{
+                                Text((item.dateTime ?? Date.now).formatted())
+                                Spacer()
+                                Text(item.pitch.description)
+                            }
+                            
                         }
-                        
+                    }
+                    .onDelete(perform: deleteItems)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                    ToolbarItem {
+                        Button(action: addItem) {
+                            Label("Add Item", systemImage: "plus")
+                        }
                     }
                 }
-                .onDelete(perform: deleteItems)
+                Text("Select an item")
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
         }
     }
     
@@ -146,7 +180,7 @@ struct listView:View{
     
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { fetchRequest[$0] }.forEach(viewContext.delete)
             
             do {
                 try viewContext.save()
@@ -193,4 +227,5 @@ struct listView:View{
          }
          } //Delete this line after data integration*/
     
-    
+
+

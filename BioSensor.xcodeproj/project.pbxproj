@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		366F3F68299D5E4C000EB18D /* BioSensor.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F66299D5E4C000EB18D /* BioSensor.xcdatamodeld */; };
-		366F3F6A299D5EB0000EB18D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F69299D5EB0000EB18D /* DataController.swift */; };
 		366F3F6D299D6C58000EB18D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F6C299D6C58000EB18D /* MainView.swift */; };
 		366F3F71299D6EC0000EB18D /* MeasurementPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F70299D6EC0000EB18D /* MeasurementPage.swift */; };
 		366F3F73299D6F43000EB18D /* NotificationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F72299D6F43000EB18D /* NotificationPage.swift */; };
@@ -22,6 +21,7 @@
 		9096D924297C295A0018DF54 /* BioSensorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D923297C295A0018DF54 /* BioSensorUITestsLaunchTests.swift */; };
 		90D44E7E29AC511B00AB07E0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D44E7D29AC511B00AB07E0 /* Persistence.swift */; };
 		90D44E8529AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90D44E8429AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets */; };
+		90D44E8729B0459500AB07E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D44E8629B0459500AB07E0 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +43,6 @@
 
 /* Begin PBXFileReference section */
 		366F3F67299D5E4C000EB18D /* BioSensor.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BioSensor.xcdatamodel; sourceTree = "<group>"; };
-		366F3F69299D5EB0000EB18D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		366F3F6B299D6B8A000EB18D /* BioSensor-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BioSensor-Bridging-Header.h"; path = "../../../Desktop/bioTech/BioSensor/BioSensor-Bridging-Header.h"; sourceTree = "<group>"; };
 		366F3F6C299D6C58000EB18D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		366F3F70299D6EC0000EB18D /* MeasurementPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementPage.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		9096D923297C295A0018DF54 /* BioSensorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioSensorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		90D44E7D29AC511B00AB07E0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		90D44E8429AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets 21-08-50-122.xcassets"; sourceTree = "<group>"; };
+		90D44E8629B0459500AB07E0 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +123,8 @@
 				366F3F70299D6EC0000EB18D /* MeasurementPage.swift */,
 				366F3F6C299D6C58000EB18D /* MainView.swift */,
 				366F3F7A299D8264000EB18D /* QuickStart.swift */,
+				90D44E8629B0459500AB07E0 /* DataController.swift */,
 				366F3F66299D5E4C000EB18D /* BioSensor.xcdatamodeld */,
-				366F3F69299D5EB0000EB18D /* DataController.swift */,
 				9096D90C297C295A0018DF54 /* Preview Content */,
 			);
 			path = BioSensor;
@@ -287,10 +287,10 @@
 			files = (
 				366F3F68299D5E4C000EB18D /* BioSensor.xcdatamodeld in Sources */,
 				366F3F71299D6EC0000EB18D /* MeasurementPage.swift in Sources */,
-				366F3F6A299D5EB0000EB18D /* DataController.swift in Sources */,
 				9096D908297C29580018DF54 /* ContentView.swift in Sources */,
 				366F3F73299D6F43000EB18D /* NotificationPage.swift in Sources */,
 				366F3F75299D70CD000EB18D /* ProfileView.swift in Sources */,
+				90D44E8729B0459500AB07E0 /* DataController.swift in Sources */,
 				366F3F7B299D8264000EB18D /* QuickStart.swift in Sources */,
 				366F3F6D299D6C58000EB18D /* MainView.swift in Sources */,
 				9096D906297C29580018DF54 /* BioSensorApp.swift in Sources */,

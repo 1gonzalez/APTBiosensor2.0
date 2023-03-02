@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct Notification: View {
-    @Binding var currentDate:Date
+    @State var currentDate:Date
     var body: some View {
         ZStack{
             Color.teal.edgesIgnoringSafeArea([.top])

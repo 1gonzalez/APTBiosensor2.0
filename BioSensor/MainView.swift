@@ -11,7 +11,9 @@ import CoreMotion
 struct MainMenu: View {
     @Binding var tabSelection: Int
     @State var showingPopup = false
+    
     @Environment(\.managedObjectContext) var moc
+    
     @FetchRequest(sortDescriptors: []) var tilts: FetchedResults<Tilt>
     var motion = CMMotionManager()
     let conVal = 180/Double.pi
@@ -32,6 +34,8 @@ struct MainMenu: View {
                     Measure()
                     let tilt = Tilt(context: moc)
                     tilt.pitch = pelvicTilt
+                    tilt.dateTime = Date.now
+                    
                     do{
                         try moc.save()
                     }
