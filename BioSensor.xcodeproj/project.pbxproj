@@ -13,6 +13,7 @@
 		366F3F73299D6F43000EB18D /* NotificationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F72299D6F43000EB18D /* NotificationPage.swift */; };
 		366F3F75299D70CD000EB18D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F74299D70CD000EB18D /* ProfileView.swift */; };
 		366F3F7B299D8264000EB18D /* QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F7A299D8264000EB18D /* QuickStart.swift */; };
+		36FF318129B6926E00E1093E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36FF318029B6926E00E1093E /* Assets.xcassets */; };
 		9096D906297C29580018DF54 /* BioSensorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D905297C29580018DF54 /* BioSensorApp.swift */; };
 		9096D908297C29580018DF54 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D907297C29580018DF54 /* ContentView.swift */; };
 		9096D90E297C295A0018DF54 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9096D90D297C295A0018DF54 /* Preview Assets.xcassets */; };
@@ -20,7 +21,6 @@
 		9096D922297C295A0018DF54 /* BioSensorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D921297C295A0018DF54 /* BioSensorUITests.swift */; };
 		9096D924297C295A0018DF54 /* BioSensorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D923297C295A0018DF54 /* BioSensorUITestsLaunchTests.swift */; };
 		90D44E7E29AC511B00AB07E0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D44E7D29AC511B00AB07E0 /* Persistence.swift */; };
-		90D44E8529AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90D44E8429AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets */; };
 		90D44E8729B0459500AB07E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D44E8629B0459500AB07E0 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +49,7 @@
 		366F3F72299D6F43000EB18D /* NotificationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPage.swift; sourceTree = "<group>"; };
 		366F3F74299D70CD000EB18D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		366F3F7A299D8264000EB18D /* QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStart.swift; sourceTree = "<group>"; };
+		36FF318029B6926E00E1093E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9096D902297C29580018DF54 /* BioSensor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BioSensor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9096D905297C29580018DF54 /* BioSensorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioSensorApp.swift; sourceTree = "<group>"; };
 		9096D907297C29580018DF54 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,7 +61,6 @@
 		9096D921297C295A0018DF54 /* BioSensorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioSensorUITests.swift; sourceTree = "<group>"; };
 		9096D923297C295A0018DF54 /* BioSensorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioSensorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		90D44E7D29AC511B00AB07E0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		90D44E8429AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets 21-08-50-122.xcassets"; sourceTree = "<group>"; };
 		90D44E8629B0459500AB07E0 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,11 +112,11 @@
 		9096D904297C29580018DF54 /* BioSensor */ = {
 			isa = PBXGroup;
 			children = (
+				36FF318029B6926E00E1093E /* Assets.xcassets */,
 				366F3F6B299D6B8A000EB18D /* BioSensor-Bridging-Header.h */,
 				9096D90B297C295A0018DF54 /* BioSensor.entitlements */,
 				9096D907297C29580018DF54 /* ContentView.swift */,
 				9096D905297C29580018DF54 /* BioSensorApp.swift */,
-				90D44E8429AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets */,
 				366F3F74299D70CD000EB18D /* ProfileView.swift */,
 				90D44E7D29AC511B00AB07E0 /* Persistence.swift */,
 				366F3F72299D6F43000EB18D /* NotificationPage.swift */,
@@ -259,7 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90D44E8529AC570200AB07E0 /* Assets.xcassets 21-08-50-122.xcassets in Resources */,
+				36FF318129B6926E00E1093E /* Assets.xcassets in Resources */,
 				9096D90E297C295A0018DF54 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,7 +449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BioSensor/Preview Content\"";
-				DEVELOPMENT_TEAM = 56N3NFFCA5;
+				DEVELOPMENT_TEAM = AZLN4B8954;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -467,7 +467,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ufl.BioSensor;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ufl.BioSensor-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -486,7 +486,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BioSensor/Preview Content\"";
-				DEVELOPMENT_TEAM = 56N3NFFCA5;
+				DEVELOPMENT_TEAM = AZLN4B8954;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -504,7 +504,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ufl.BioSensor;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ufl.BioSensor-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
