@@ -86,46 +86,40 @@ struct listView:View{
                             for: dateSelected)
                     ) ?? Date.now) as CVarArg))
     }
-    /*
-    FetchRequest<Tilt>(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Tilt.dateTime, ascending: true)],
-            predicate: NSPredicate(
-                format: "dateTime >= %@ AND dateTime <= %@",
-                Calendar.current.startOfDay(for: filter) as CVarArg,
-                Calendar.current.startOfDay(for: Calendar.current.date(
-                    byAdding:Calendar.Component.day,
-                    value: 1,
-                    to: Calendar.current.startOfDay(
-                        for: filter)
-                ) ?? Date.now) as CVarArg))
-*/
+
     @Environment(\.managedObjectContext) private var viewContext
     
-    /*@FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Tilt.dateTime, ascending: true)],
-        predicate: NSPredicate(format: "dateTime >= %@ AND dateTime <= %@",Calendar.current.startOfDay(for: dateFilter) as CVarArg,Calendar.current.startOfDay(for: dateFilter) as CVarArg),
-        animation: .default
-    )*/
-   // private var items: FetchedResults<Tilt>
-    
-    
     var body:some View{
+        let ave:Double = Double(fetchRequest.map{$0.pitch}.reduce(0.00,+) / Double(fetchRequest.count))
         VStack{
             Chart {
                 ForEach(fetchRequest,id:\.id) { item in
-                    LineMark(
-                        x: .value("Date", item.dateTime ?? Date.now),
+                    PointMark(
+                        x: .value("Date", (item.dateTime ?? Date.now).formatted(date:.omitted,time:.shortened)),
                         y: .value("Temp", item.pitch)
                     )
+                    RuleMark(y: .value("Average", ave))
+                        .foregroundStyle(getColor(val:ave))
+                        .lineStyle(StrokeStyle(lineWidth: 2))
+                        .annotation(position: .bottom, alignment: .trailing) {
+                            Text("Average: \(ave, format: .number.precision(.fractionLength(1)))")
+                                .font(.body.bold())
+                                .foregroundStyle(.red)
+                        }
                 }
             }
+            
             .chartPlotStyle { plotContent in
                 plotContent
                     .background(.white.opacity(1.0))
                     .border(Color.blue, width: 2)
             }
             .frame(width: UIScreen.main.bounds.width*7/8, height: UIScreen.main.bounds.height*1/3)
-            
+            .chartYAxis {
+                        AxisMarks(position: .leading)
+                    }
+            .chartYScale(domain: 0...35)
+            .clipped(antialiased:true)
             Spacer()
             
             NavigationView {
@@ -137,16 +131,17 @@ struct listView:View{
                             HStack{
                                 Text((item.dateTime ?? Date.now).formatted())
                                 Spacer()
-                                Text(item.pitch.description)
+                                Text("\(item.pitch,format: .number.precision(.fractionLength(2)))°")
                             }
                             
                         }
                     }
                     .onDelete(perform: deleteItems)
                 }
+                /*
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
+                       EditButton()
                     }
                     ToolbarItem {
                         Button(action: addItem) {
@@ -154,7 +149,7 @@ struct listView:View{
                         }
                     }
                 }
-                Text("Select an item")
+                Text("Select an item")*/
             }
         }
     }
@@ -163,17 +158,14 @@ struct listView:View{
         withAnimation {
             let newItem = Tilt(context: viewContext)
             newItem.dateTime = Date()
-            newItem.pitch = 22.3
+            newItem.pitch = Double.random(in:1...40)
             newItem.id = UUID()
             
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 print(nsError)
-                //fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
@@ -185,47 +177,24 @@ struct listView:View{
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 print(nsError)
-                //fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
-}
-        /*
-         VStack{ //Delete this line after data integration
-         //Delete from here
-         Chart {
-         ForEach(measurements,id:\.id) { item in
-         LineMark(
-         x: .value("Date", item.dateTime ?? Date.now),
-         y: .value("Temp", item.pitch)
-         )
-         }
-         }
-         .chartPlotStyle { plotContent in
-         plotContent
-         .background(.white.opacity(1.0))
-         .border(Color.blue, width: 2)
-         }
-         .frame(width: UIScreen.main.bounds.width*7/8, height: UIScreen.main.bounds.height*1/3)
-         
-         //Delete To Here
-         NavigationView{
-         List{ForEach(measurements, id:\.id) {measure in
-         measurementRow(measurement:
-         measurementData(date: measure.dateTime ?? Date.now, data: String(measure.pitch))
-         )
-         }.onDelete{
-         indexSet in
-         print(indexSet)
-         
-         }
-         } .navigationBarTitle("Data", displayMode: .inline)
-         }
-         } //Delete this line after data integration*/
     
-
-
+    private func getColor(val:Double)->Color{
+        let s = val
+        let greenLimit = 8.00
+        let yellowLimit = 10.00
+        if(s < greenLimit){
+            return Color.green
+        }
+        else if(s<yellowLimit){
+            return Color.yellow
+        }
+        else{
+            return Color.red
+        }
+    }
+}
