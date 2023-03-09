@@ -16,7 +16,9 @@ struct BioSensorApp: App {
     
     init() {
         center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {granted, error in
-            
+            if granted {
+                print("Woah it worked")
+            }
             if let error = error {
                 print(error.localizedDescription)
             }
