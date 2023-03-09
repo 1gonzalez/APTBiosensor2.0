@@ -6,11 +6,22 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 @main
 struct BioSensorApp: App {
     //@StateObject private var dataController = DataController()
     let persistenceController = PersistenceController.shared
+    let center = UNUserNotificationCenter.current()
+    
+    init() {
+        center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {granted, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        })
+    }
     
     var body: some Scene {
         WindowGroup {
