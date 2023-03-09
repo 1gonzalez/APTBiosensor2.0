@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UserNotifications
 
 
 struct Notification: View {
@@ -15,6 +16,19 @@ struct Notification: View {
         ZStack{
             Color.teal.edgesIgnoringSafeArea([.top])
             VStack{
+                Button(action: {
+                    let content = UNMutableNotificationContent()
+                    content.title = "Time to Measure!"
+                    content.subtitle = "Click here to open APTBiosensor and complete your measurement."
+                    
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                    
+                    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                    
+                    UNUserNotificationCenter.current().add(request)
+                }) {
+                    Text("notification test")
+                }
                 HStack{
                     Text("Notification")
                         .font(.largeTitle)
