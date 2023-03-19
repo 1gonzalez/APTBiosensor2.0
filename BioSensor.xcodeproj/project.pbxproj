@@ -14,6 +14,7 @@
 		366F3F75299D70CD000EB18D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F74299D70CD000EB18D /* ProfileView.swift */; };
 		366F3F7B299D8264000EB18D /* QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F7A299D8264000EB18D /* QuickStart.swift */; };
 		36FF318129B6926E00E1093E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36FF318029B6926E00E1093E /* Assets.xcassets */; };
+		9079AF5729C7A74200252E39 /* APTRegression 1 copy 13.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9079AF5629C7A74200252E39 /* APTRegression 1 copy 13.mlmodel */; };
 		9096D906297C29580018DF54 /* BioSensorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D905297C29580018DF54 /* BioSensorApp.swift */; };
 		9096D908297C29580018DF54 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D907297C29580018DF54 /* ContentView.swift */; };
 		9096D90E297C295A0018DF54 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9096D90D297C295A0018DF54 /* Preview Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		366F3F74299D70CD000EB18D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		366F3F7A299D8264000EB18D /* QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStart.swift; sourceTree = "<group>"; };
 		36FF318029B6926E00E1093E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9079AF5629C7A74200252E39 /* APTRegression 1 copy 13.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "APTRegression 1 copy 13.mlmodel"; sourceTree = "<group>"; };
 		9096D902297C29580018DF54 /* BioSensor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BioSensor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9096D905297C29580018DF54 /* BioSensorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioSensorApp.swift; sourceTree = "<group>"; };
 		9096D907297C29580018DF54 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				366F3F6C299D6C58000EB18D /* MainView.swift */,
 				366F3F7A299D8264000EB18D /* QuickStart.swift */,
 				90D44E8629B0459500AB07E0 /* DataController.swift */,
+				9079AF5629C7A74200252E39 /* APTRegression 1 copy 13.mlmodel */,
 				366F3F66299D5E4C000EB18D /* BioSensor.xcdatamodeld */,
 				9096D90C297C295A0018DF54 /* Preview Content */,
 			);
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				366F3F68299D5E4C000EB18D /* BioSensor.xcdatamodeld in Sources */,
+				9079AF5729C7A74200252E39 /* APTRegression 1 copy 13.mlmodel in Sources */,
 				366F3F71299D6EC0000EB18D /* MeasurementPage.swift in Sources */,
 				9096D908297C29580018DF54 /* ContentView.swift in Sources */,
 				366F3F73299D6F43000EB18D /* NotificationPage.swift in Sources */,

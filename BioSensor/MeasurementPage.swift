@@ -25,6 +25,7 @@ struct Measurement: View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack{
+                MLPredictedData()
                 Spacer()
                 HStack{
                     Spacer()
@@ -196,5 +197,23 @@ struct listView:View{
         else{
             return Color.red
         }
+    }
+}
+
+
+struct MLPredictedData:View{
+    var body:some View{
+        VStack{
+            Text(predict1())
+        }
+    }
+    
+    private func predict1()->String{
+        let model = APTRegression_1_copy_13()
+        guard let modeloutput = try? model.prediction(HipRightX:-0.127274,HipRightYAngle:0.894333*180/3.1415) else {
+            fatalError("Unexpected runtime error.")
+        }
+        let answer = modeloutput.Right_Tilt
+        return String(answer)
     }
 }
