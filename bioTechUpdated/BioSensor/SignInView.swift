@@ -7,10 +7,6 @@
 
 import Foundation
 import SwiftUI
-import GoogleSignIn
-import GoogleSignInSwift
-import Firebase
-import FirebaseAuth
 
 struct SignInView: View {
     var body: some View {
@@ -22,17 +18,12 @@ struct SignInView: View {
                     .resizable()
                     .scaledToFit()
                     .padding()
-                
-                GoogleSignInButton{
-                    UserAuth.share.googleSignIn(presenting: getRootViewController()) { error in print("Error: \(error)")
-                    }
                 }
                 
                 Spacer()
             }
         }
     }
-}
 
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {

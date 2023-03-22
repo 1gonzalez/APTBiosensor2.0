@@ -4,7 +4,6 @@
 //
 //  Created by Shi Xiang Lim on 2/7/23.
 //
-
 import Foundation
 import SwiftUI
 import Charts
@@ -18,9 +17,7 @@ import Charts
 
 struct Measurement: View {
     
-    @Binding var currentDate:Date
-    @Binding var reading:[Reading]
-    @Binding var textInput:String
+    @State var currentDate = Date.now
     
     var tmp = listView()
     var body: some View {

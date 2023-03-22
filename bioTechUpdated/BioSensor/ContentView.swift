@@ -39,9 +39,8 @@ struct ContentView: View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             TabView (selection: $tabSelection){
-                Measurement(currentDate:$currentDate,
-                            reading:$readings, textInput:$textInput)
-                
+                Measurement()
+    
                 .tabItem {
                     Label("Data", systemImage: "chart.xyaxis.line")
                 }

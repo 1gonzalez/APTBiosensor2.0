@@ -32,8 +32,14 @@ struct MainMenu: View {
                     Measure()
                     let tilt = Tilt(context: moc)
                     tilt.pitch = pelvicTilt
+                    tilt.dateTime = Date.now
                     
-                    try? moc.save()
+                    do{
+                        try moc.save()
+                    }
+                    catch{
+                        print("error")
+                    }
                 }){
                     Text("Tap to Measure")
                         .font(.system(size: 60, weight: Font.Weight.bold))

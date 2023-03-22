@@ -10,7 +10,7 @@ import Firebase
 
 @main
 struct BioSensorApp: App {
-    @StateObject private var dataController = DataController()
+    let persistenceController = PersistenceController.shared
     @AppStorage("signedIn") var isSignedIn = false
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
@@ -20,7 +20,7 @@ struct BioSensorApp: App {
                 SignInView()
             } else {
                 ContentView()
-                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
         }
     }
