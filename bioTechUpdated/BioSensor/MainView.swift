@@ -41,6 +41,14 @@ struct MainMenu: View {
                         print("error")
                     }
                 }){
+                    StrokeText(text: "Tap to Measure", width: 1, color: Color.black)
+                        .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
+                        .font(.system(size: 60, weight: Font.Weight.bold))
+                        .frame(width: 350, height: 350)
+                        .background(Color(red: 0.82, green: 0.88, blue: 0.92))
+                        .clipShape(Circle())
+                        .shadow(radius: 20)
+                    /*
                     Text("Tap to Measure")
                         .font(.system(size: 60, weight: Font.Weight.bold))
                         .frame(width: 350, height: 350)
@@ -48,6 +56,7 @@ struct MainMenu: View {
                         .background(Color(red: 0.82, green: 0.88, blue: 0.92))
                         .clipShape(Circle())
                         .shadow(radius: 20)
+                     */
                 }
                 .padding()
                 .frame(maxHeight: .infinity)
@@ -90,6 +99,25 @@ struct MainMenu: View {
                         //Double(Int(10*(90-abs(trueData.attitude.yaw*self.conVal))))/10
                     }
                 }
+        }
+    }
+}
+
+struct StrokeText: View {
+    let text: String
+    let width: CGFloat
+    let color: Color
+    
+    var body: some View {
+        ZStack{
+            ZStack{
+                Text(text).offset(x: width, y: width)
+                Text(text).offset(x: -width, y: -width)
+                Text(text).offset(x: -width, y:  width)
+                Text(text).offset(x:  width, y: -width)
+            }
+            .foregroundColor(color)
+            Text(text)
         }
     }
 }
