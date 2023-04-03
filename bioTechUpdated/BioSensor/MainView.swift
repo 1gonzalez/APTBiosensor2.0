@@ -62,9 +62,9 @@ struct MainMenu: View {
                 .frame(maxHeight: .infinity)
                 Spacer()
                 
-                Button("Quick Start Guide") {
-                    showingPopup = true
-                }
+                Button(action: {showingPopup = true}, label: {
+                    StrokeText(text: "Quick Start Guide", width: 0.5, color: .black)
+                })
                 
                 .lineLimit(1)
                 .fixedSize()
