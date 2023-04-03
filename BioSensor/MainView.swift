@@ -18,6 +18,7 @@ struct MainMenu: View {
     var motion = CMMotionManager()
     let conVal = 180/Double.pi
     @State var pelvicTilt:Double = 0.0
+    @State var pelvicRoll:Double = 0.0
     var body: some View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
@@ -34,6 +35,7 @@ struct MainMenu: View {
                     Measure()
                     let tilt = Tilt(context: moc)
                     tilt.pitch = pelvicTilt
+                    tilt.roll = pelvicRoll
                     tilt.dateTime = Date.now
                     
                     do{
@@ -88,6 +90,7 @@ struct MainMenu: View {
                 to: .main) {(data, error) in
                     if let trueData = data{
                         self.pelvicTilt = 85 - abs(trueData.attitude.pitch * self.conVal)
+                        self.pelvicRoll = 85 - abs(trueData.attitude.roll * self.conVal)
                         //Double(Int(10*(90-abs(trueData.attitude.yaw*self.conVal))))/10
                     }
                 }

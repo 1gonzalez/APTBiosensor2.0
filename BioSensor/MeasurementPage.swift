@@ -25,7 +25,6 @@ struct Measurement: View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack{
-                MLPredictedData()
                 Spacer()
                 HStack{
                     Spacer()
@@ -71,6 +70,8 @@ struct listView:View{
     var dateFilter:Binding<Date>
     var dateSelected:Date
     @FetchRequest var fetchRequest: FetchedResults<Tilt>
+    
+    
     
     init(dateFilter:Binding<Date>){
         self.dateFilter = dateFilter
@@ -127,7 +128,7 @@ struct listView:View{
                 List {
                     ForEach(fetchRequest) { item in
                         NavigationLink {
-                            Text("Gait Data")
+                            MLPredictedData(x:item.roll, y: item.pitch)
                         } label: {
                             HStack{
                                 Text((item.dateTime ?? Date.now).formatted())
@@ -160,6 +161,7 @@ struct listView:View{
             let newItem = Tilt(context: viewContext)
             newItem.dateTime = Date()
             newItem.pitch = Double.random(in:1...40)
+            newItem.roll = Double.random(in:1...40)
             newItem.id = UUID()
             
             do {
@@ -202,18 +204,36 @@ struct listView:View{
 
 
 struct MLPredictedData:View{
+    var x:Double
+    var y:Double
+    var AIImage: Image = Image(systemName: "figure.mind.and.body")
     var body:some View{
         VStack{
-            Text(predict1())
+            Text("AI Prediction")
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+            Spacer()
+            /*
+            AIImage
+                .resizable()
+                .frame(width: 100, height: 100)
+                .shadow(radius: 10)
+                .foregroundColor(.accentColor)
+             */
+            Spacer()
+            Text(predict1(RightX:x,RightY:y) + "°").font(.custom("Test", size: 80))
+                Spacer()
+            Spacer()
         }
     }
     
-    private func predict1()->String{
+    private func predict1(RightX:Double, RightY: Double)->String{
         let model = APTRegression_1_copy_13()
-        guard let modeloutput = try? model.prediction(HipRightX:-0.127274,HipRightYAngle:0.894333*180/3.1415) else {
-            fatalError("Unexpected runtime error.")
+        guard let modeloutput = try? model.prediction(HipRightX:RightX,HipRightYAngle:RightY*180/3.1415)
+        else {
+            return "Error: Can't compute"
         }
         let answer = modeloutput.Right_Tilt
-        return String(answer)
+        return String(format: "%.2f",answer)
     }
 }
