@@ -13,6 +13,13 @@ import UserNotifications
 struct Notification: View {
     @Binding var currentDate:Date
     @State private var notify = false
+    struct Notif : Identifiable {
+        let id = UUID()
+        let name : String
+    }
+    let notifs = [
+        Notif(name: Date.now.formatted())
+    ]
     let content = UNMutableNotificationContent()
     var body: some View {
         ZStack{
@@ -29,52 +36,10 @@ struct Notification: View {
 //                }
                 
                 
-                List {
-                    HStack{
-                        DatePicker("",
-                                   selection: $currentDate,displayedComponents: .hourAndMinute)
-                        .labelsHidden()
-                        .frame(width: 150, height: 80, alignment: .leading)
-                        .clipped()
-                        Spacer()
-                        Toggle(isOn: $notify) {
-                            if notify {
-                                Text("Hello World")
-                            }
-                        }
-                    }
-                    .listRowBackground(Color.clear)
-                    HStack{
-                        DatePicker("",
-                                   selection: $currentDate,displayedComponents: .hourAndMinute)
-                        .labelsHidden()
-                        .frame(width: 150, height: 80, alignment: .leading)
-                        .clipped()
-                        Spacer()
-                        Toggle(isOn: $notify) {}
-                            .onChange(of: notify) { value in
-                                let date = Date.now
-                                content.title = "Time to Measure!"
-                                content.subtitle = "Click here to open APTBiosensor and complete your measurement."
-                                
-                                var dateComponents = DateComponents()
-                                dateComponents.calendar = Calendar.current
-                                
-                                dateComponents.hour = Calendar.current.component(.hour, from: date)
-                                dateComponents.minute = 47
-                                //dateComponents.minute = Calendar.current.component(.minute, from: date)
-                                
-                                let trigger = UNCalendarNotificationTrigger(
-                                         dateMatching: dateComponents, repeats: true)
-                                
-                                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                                
-                                UNUserNotificationCenter.current().add(request)
-                                
-                            }
-                    }
-                    .listRowBackground(Color.clear)
+                List(notifs) { notif in
+                    Text(notif.name)
                 }
+                .listRowBackground(Color.clear)
                 .scrollContentBackground(.hidden)
                 .padding()
                 
