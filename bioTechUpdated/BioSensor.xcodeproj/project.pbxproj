@@ -25,6 +25,7 @@
 		366F3F7B299D8264000EB18D /* QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F7A299D8264000EB18D /* QuickStart.swift */; };
 		367063A529DB40A4003F9CEE /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367063A429DB40A4003F9CEE /* Persistence.swift */; };
 		367063A729DB40F0003F9CEE /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367063A629DB40EF003F9CEE /* DataController.swift */; };
+		367063AD29DB55F0003F9CEE /* NewNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367063AC29DB55F0003F9CEE /* NewNotification.swift */; };
 		9096D906297C29580018DF54 /* BioSensorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D905297C29580018DF54 /* BioSensorApp.swift */; };
 		9096D908297C29580018DF54 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D907297C29580018DF54 /* ContentView.swift */; };
 		9096D90A297C295A0018DF54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9096D909297C295A0018DF54 /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		366F3F7A299D8264000EB18D /* QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStart.swift; sourceTree = "<group>"; };
 		367063A429DB40A4003F9CEE /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		367063A629DB40EF003F9CEE /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		367063AC29DB55F0003F9CEE /* NewNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotification.swift; sourceTree = "<group>"; };
 		9096D902297C29580018DF54 /* BioSensor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BioSensor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9096D905297C29580018DF54 /* BioSensorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioSensorApp.swift; sourceTree = "<group>"; };
 		9096D907297C29580018DF54 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				9096D907297C29580018DF54 /* ContentView.swift */,
 				366F3F74299D70CD000EB18D /* ProfileView.swift */,
 				366F3F72299D6F43000EB18D /* NotificationPage.swift */,
+				367063AC29DB55F0003F9CEE /* NewNotification.swift */,
 				366F3F70299D6EC0000EB18D /* MeasurementPage.swift */,
 				366F3F6C299D6C58000EB18D /* MainView.swift */,
 				0DCC91C729B6C350005A8394 /* ViewExtension.swift */,
@@ -342,6 +345,7 @@
 				0D8D5F7B29AF8D8F00A3D60D /* SignInView.swift in Sources */,
 				366F3F73299D6F43000EB18D /* NotificationPage.swift in Sources */,
 				367063A529DB40A4003F9CEE /* Persistence.swift in Sources */,
+				367063AD29DB55F0003F9CEE /* NewNotification.swift in Sources */,
 				366F3F75299D70CD000EB18D /* ProfileView.swift in Sources */,
 				366F3F7B299D8264000EB18D /* QuickStart.swift in Sources */,
 				366F3F6D299D6C58000EB18D /* MainView.swift in Sources */,

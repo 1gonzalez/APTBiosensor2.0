@@ -29,21 +29,36 @@ struct Notification: View {
 //                        .fontWeight(.medium)
 //                        .foregroundColor(Color.accentColor)
 //                }
+                
+                List(notifs) { index in
+                    Text("My List \(index)")
+                }
 
-                List(notifs) {_ in 
+                /*
+                List(notifs) {_ in
                 }
                 .listRowBackground(Color.clear)
                 .scrollContentBackground(.hidden)
                 .padding()
+                 */
                 
                 
                 HStack{
                     
+                    /*
                     Button {
+                        NewNotification()
                         print("Plus tapped!")
                     } label: {
                         Image(systemName: "plus.square")
                     }
+                    .font(.system(size: 40))
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(Color.accentColor)
+                     */
+                    NavigationLink(destination: NewNotification(), label: {
+                        Image(systemName: "plus.square")
+                    })
                     .font(.system(size: 40))
                     .frame(width: 50, height: 50)
                     .foregroundColor(Color.accentColor)
