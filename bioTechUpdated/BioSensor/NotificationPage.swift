@@ -13,13 +13,8 @@ import UserNotifications
 struct Notification: View {
     @Binding var currentDate:Date
     @State private var notify = false
-    struct Notif : Identifiable {
-        let id = UUID()
-        let name : String
-    }
-    let notifs = [
-        Notif(name: Date.now.formatted())
-    ]
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var notifs: FetchedResults<Notifications>
     let content = UNMutableNotificationContent()
     var body: some View {
         ZStack{
@@ -34,10 +29,8 @@ struct Notification: View {
 //                        .fontWeight(.medium)
 //                        .foregroundColor(Color.accentColor)
 //                }
-                
-                
-                List(notifs) { notif in
-                    Text(notif.name)
+
+                List(notifs) {_ in 
                 }
                 .listRowBackground(Color.clear)
                 .scrollContentBackground(.hidden)
