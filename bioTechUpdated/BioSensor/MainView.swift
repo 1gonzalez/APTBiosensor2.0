@@ -41,7 +41,7 @@ struct MainMenu: View {
                         print("error")
                     }
                 }){
-                    StrokeText(text: "Tap to Measure", width: 1, color: Color.black)
+                    Text("Tap to Measure")
                         .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
                         .font(.system(size: 60, weight: Font.Weight.bold))
                         .frame(width: 350, height: 350)
@@ -62,10 +62,7 @@ struct MainMenu: View {
                 .frame(maxHeight: .infinity)
                 Spacer()
                 
-                Button(action: {showingPopup = true}, label: {
-                    StrokeText(text: "Quick Start Guide", width: 0.5, color: .black)
-                })
-                
+                Button(action: {showingPopup = true}, label: {Text("Quick Start Guide")})
                 .lineLimit(1)
                 .fixedSize()
                 .font(.system(size: 14))
@@ -99,25 +96,6 @@ struct MainMenu: View {
                         //Double(Int(10*(90-abs(trueData.attitude.yaw*self.conVal))))/10
                     }
                 }
-        }
-    }
-}
-
-struct StrokeText: View {
-    let text: String
-    let width: CGFloat
-    let color: Color
-    
-    var body: some View {
-        ZStack{
-            ZStack{
-                Text(text).offset(x: width, y: width)
-                Text(text).offset(x: -width, y: -width)
-                Text(text).offset(x: -width, y:  width)
-                Text(text).offset(x:  width, y: -width)
-            }
-            .foregroundColor(color)
-            Text(text)
         }
     }
 }

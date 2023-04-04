@@ -13,9 +13,7 @@ import UserNotifications
 struct Notification: View {
     @Binding var currentDate:Date
     @State private var notify = false
-    @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var notifs: FetchedResults<Notifications>
-    let content = UNMutableNotificationContent()
     var body: some View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
