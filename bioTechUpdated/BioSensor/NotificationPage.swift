@@ -8,12 +8,13 @@
 import Foundation
 import SwiftUI
 import UserNotifications
+import CoreData
 
-
+//Gotta fix background
 struct Notification: View {
-    @Binding var currentDate:Date
     @State private var notify = false
     @FetchRequest(sortDescriptors: []) var notifs: FetchedResults<Notifications>
+    @Environment(\.managedObjectContext) var moc
     var body: some View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
@@ -27,10 +28,60 @@ struct Notification: View {
 //                        .fontWeight(.medium)
 //                        .foregroundColor(Color.accentColor)
 //                }
-                
-                List(notifs) { index in
-                    Text("My List \(index)")
+                NavigationView {
+                    List {
+                        ForEach(notifs) { index in
+                            NavigationLink {
+                                NewNotification(notification: index)
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading, content: {
+                                        Text(index.time?.formatted(date: .omitted, time: .shortened) ?? "Error")
+                                            .bold()
+                                            .font(.title)
+                                        Text(index.title ?? "Label error")
+                                            .font(.body)
+                                    })
+                                    .listRowBackground(Color.clear)
+                                    Toggle("", isOn: Binding(get: {index.isOn}, set: {_,_ in
+                                        if (index.isOn == true) {
+                                            index.isOn = false
+                                            
+                                            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [index.id!.uuidString])
+                                            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [index.id!.uuidString])
+                                        }
+                                        else {
+                                            index.isOn = true
+                                            
+                                            let content = UNMutableNotificationContent()
+                                            content.title = "APTBiosensor"
+                                            content.subtitle = index.title!
+                                            content.sound = UNNotificationSound.default
+                                            
+                                            let dateComp = Calendar.current.dateComponents([.hour, .minute], from: index.time!)
+                                            
+                                            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+                                            let id = index.id
+                                            
+                                            let request = UNNotificationRequest(identifier: id!.uuidString, content: content, trigger: trigger)
+                                            
+                                            UNUserNotificationCenter.current().add(request)
+                                        }
+                                        try? moc.save()
+                                    }))
+                                }
+                                .listRowBackground(Color.clear)
+                            }
+                            .listRowBackground(Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all))
+                        }
+                        .onDelete(perform: deleteNotifs)
+                        .listRowBackground(Color.clear)
+                    }
+                    .listRowBackground(Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all))
+                    .scrollContentBackground(.hidden)
+                    .padding()
                 }
+                .listRowBackground(Color.clear)
 
                 /*
                 List(notifs) {_ in
@@ -54,7 +105,7 @@ struct Notification: View {
                     .frame(width: 50, height: 50)
                     .foregroundColor(Color.accentColor)
                      */
-                    NavigationLink(destination: NewNotification(), label: {
+                    NavigationLink(destination: NewNotification(notification: Notifications()), label: {
                         Image(systemName: "plus.square")
                     })
                     .font(.system(size: 40))
@@ -62,7 +113,12 @@ struct Notification: View {
                     .foregroundColor(Color.accentColor)
                     
                     Button {
-                        print("Minus tapped!")
+                        let toDelete = notifs.last?.id?.uuidString
+                        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [toDelete!])
+                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [toDelete!])
+                        moc.delete(notifs[notifs.endIndex - 1])
+                        
+                        try? moc.save()
                     } label: {
                         Image(systemName: "minus.square")
                     }
@@ -75,6 +131,7 @@ struct Notification: View {
 
             }
             Spacer()
+            /*
             Button(action: {
                 let content = UNMutableNotificationContent()
                 content.title = "Time to Measure!"
@@ -88,27 +145,17 @@ struct Notification: View {
             }) {
                 Text("Notification Demo")
             }
+             */
 
         }
     }
+    
+    private func deleteNotifs(at offsets: IndexSet) {
+        for offset in offsets {
+            let notif = notifs[offset]
+            moc.delete(notif)
+        }
+        
+        try? moc.save()
+    }
 }
-
-/*
- Use the following for when implemeting in iOS 14 and lower
- 
- struct ContentView: View {
-     @State private var isToggle : Bool = false {
-             didSet {
-                 print("value did change")
-             }
-     }
-
-     var body: some View {
-         Toggle(isOn: self.$isToggle){
-                     Text("Toggle Label ")
-          }
-     }
- 
- 
- also refer to here https://stackoverflow.com/questions/56996272/how-can-i-trigger-an-action-when-a-swiftui-toggle-is-toggled
- }*/

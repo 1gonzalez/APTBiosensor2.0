@@ -44,7 +44,7 @@ struct ProfileView: View {
                         //                            .font(.subheadline)
                         //                            .foregroundColor(.gray)
                         
-                        NavigationLink(destination: Notification(currentDate:$currentDate)){
+                        NavigationLink(destination: Notification()){
                             Text("REMINDERS")
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .font(.system(size: 18)
