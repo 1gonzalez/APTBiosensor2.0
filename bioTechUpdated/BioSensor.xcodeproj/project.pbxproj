@@ -17,6 +17,7 @@
 		0DCC91C829B6C350005A8394 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCC91C729B6C350005A8394 /* ViewExtension.swift */; };
 		0DCC91CA29B6CBBC005A8394 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCC91C929B6CBBC005A8394 /* UserAuth.swift */; };
 		0DD481FD29C0231C00EA26B3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD481FC29C0231C00EA26B3 /* AboutView.swift */; };
+		3658861629E75BC5002D65F7 /* ChangeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658861529E75BC5002D65F7 /* ChangeNotification.swift */; };
 		366F3F68299D5E4C000EB18D /* BioSensor.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F66299D5E4C000EB18D /* BioSensor.xcdatamodeld */; };
 		366F3F6D299D6C58000EB18D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F6C299D6C58000EB18D /* MainView.swift */; };
 		366F3F71299D6EC0000EB18D /* MeasurementPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F3F70299D6EC0000EB18D /* MeasurementPage.swift */; };
@@ -61,6 +62,7 @@
 		0DCC91C729B6C350005A8394 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		0DCC91C929B6CBBC005A8394 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		0DD481FC29C0231C00EA26B3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		3658861529E75BC5002D65F7 /* ChangeNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNotification.swift; sourceTree = "<group>"; };
 		366F3F67299D5E4C000EB18D /* BioSensor.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BioSensor.xcdatamodel; sourceTree = "<group>"; };
 		366F3F6B299D6B8A000EB18D /* BioSensor-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BioSensor-Bridging-Header.h"; path = "../../../Desktop/bioTech/BioSensor/BioSensor-Bridging-Header.h"; sourceTree = "<group>"; };
 		366F3F6C299D6C58000EB18D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				367063A429DB40A4003F9CEE /* Persistence.swift */,
 				0D8D5F7C29AF8EEA00A3D60D /* GoogleSignInButton.swift */,
 				0D8D5F7A29AF8D8F00A3D60D /* SignInView.swift */,
+				3658861529E75BC5002D65F7 /* ChangeNotification.swift */,
 				0DCC91C929B6CBBC005A8394 /* UserAuth.swift */,
 				366F3F7A299D8264000EB18D /* QuickStart.swift */,
 				0DD481FC29C0231C00EA26B3 /* AboutView.swift */,
@@ -343,6 +346,7 @@
 				9096D908297C29580018DF54 /* ContentView.swift in Sources */,
 				0DCC91CA29B6CBBC005A8394 /* UserAuth.swift in Sources */,
 				0D8D5F7B29AF8D8F00A3D60D /* SignInView.swift in Sources */,
+				3658861629E75BC5002D65F7 /* ChangeNotification.swift in Sources */,
 				366F3F73299D6F43000EB18D /* NotificationPage.swift in Sources */,
 				367063A529DB40A4003F9CEE /* Persistence.swift in Sources */,
 				367063AD29DB55F0003F9CEE /* NewNotification.swift in Sources */,
