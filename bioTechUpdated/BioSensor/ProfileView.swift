@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 import CoreMotion
 import FirebaseAuth
+import GoogleSignIn
 
 struct ProfileView: View {
     @State private var currentDate = Date.now
     
-    var name: String = "Albert Gator"
-    var username: String = "A.Gator352"
-    var profileImage: Image = Image(systemName: "person.fill")
+    var name: String = GIDSignIn.sharedInstance.currentUser?.profile?.name ?? ""
+    var profileImage = GIDSignIn.sharedInstance.currentUser?.profile?.imageURL(withDimension: 150)
     @State private var confirmationShown = false
     
     
@@ -23,22 +23,21 @@ struct ProfileView: View {
         NavigationView {
             
             ZStack {
-                Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
+                Color(red: 0.50, green: 0.82, blue: 0.96)
+                    .edgesIgnoringSafeArea(.all)
                 
                 VStack{
                     VStack {
-                        profileImage
-                            .resizable()
+                        AsyncImage(url: profileImage)
                             .frame(width: 150, height: 150)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                            .shadow(radius: 10)
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
                         
                         Text(name)
-                            .font(.title)
-                            .bold()
-                            .foregroundColor(.accentColor)
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .shadow(radius: 1)
                         
                         //                        Text(username)
                         //                            .font(.subheadline)
@@ -47,55 +46,43 @@ struct ProfileView: View {
                         NavigationLink(destination: Notification()){
                             Text("REMINDERS")
                                 .frame(minWidth: 0, maxWidth: .infinity)
-                                .font(.system(size: 18)
+                                .font(.system(size: 20)
                                     .bold())
                                 .padding()
-                                .foregroundColor(.accentColor)
-                                .background(Color(red: 0.82, green: 0.88, blue: 0.92))
+                                .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
+                                .background(.white)
+                            
                         }
                         .cornerRadius(10)
                         .padding()
+                        .shadow(radius: 2)
                         
-                        Button(action: {
-                            print("Resources was tapped")
-                        }) {
+                        NavigationLink(destination: ResourcesView()){
                             Text("RESOURCES")
                                 .frame(minWidth: 0, maxWidth: .infinity)
-                                .font(.system(size: 18)
+                                .font(.system(size: 20)
                                     .bold())
                                 .padding()
-                                .foregroundColor(.accentColor)
-                                .background(Color(red: 0.82, green: 0.88, blue: 0.92))
+                                .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
+                                .background(.white)
                         }
                         .cornerRadius(10)
                         .padding()
+                        .shadow(radius: 2)
                         
                         NavigationLink(destination: AboutView()){
                             Text("ABOUT")
                                 .frame(minWidth: 0, maxWidth: .infinity)
-                                .font(.system(size: 18)
+                                .font(.system(size: 20)
                                     .bold())
                                 .padding()
-                                .foregroundColor(.accentColor)
-                                .background(Color(red: 0.82, green: 0.88, blue: 0.92))
+                                .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
+                                .background(.white)
                         }
                         .cornerRadius(10)
                         .padding()
-                        
-                        //                        Button(action: {
-                        //                            print("About was tapped")
-                        //                        }) {
-                        //                            Text("ABOUT")
-                        //                                .frame(minWidth: 0, maxWidth: .infinity)
-                        //                                .font(.system(size: 18)
-                        //                                    .bold())
-                        //                                .padding()
-                        //                                .foregroundColor(.accentColor)
-                        //                                .background(Color(red: 0.82, green: 0.88, blue: 0.92))
-                        //                        }
-                        //                        .cornerRadius(10)
-                        //                        .padding()
-                        
+                        .shadow(radius: 2)
+
                         Button(
                             role: .destructive,
                             action: {
@@ -103,14 +90,15 @@ struct ProfileView: View {
                             }) {
                                 Text("SIGN OUT")
                                     .frame(minWidth: 0, maxWidth: .infinity)
-                                    .font(.system(size: 18)
+                                    .font(.system(size: 20)
                                         .bold())
                                     .padding()
-                                    .foregroundColor(.accentColor)
-                                    .background(Color(red: 0.82, green: 0.88, blue: 0.92))
+                                    .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
+                                    .background(.white)
                             }
                             .cornerRadius(10)
                             .padding()
+                            .shadow(radius: 2)
                             .confirmationDialog(
                                 "Are you sure you want to sign out?",
                                 isPresented: $confirmationShown,

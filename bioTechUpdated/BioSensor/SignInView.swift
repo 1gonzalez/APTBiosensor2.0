@@ -17,7 +17,7 @@ struct SignInView: View {
                     .padding()
                 
                 GoogleSignInButton{
-                    UserAuth.share.googleSignIn(presenting: getRootViewController()) { error in print("Error: \(error)")
+                    UserAuth.share.googleSignIn(presenting: getRootViewController()) { error in print("Error: \(String(describing: error))")
                     }
                 }
                 

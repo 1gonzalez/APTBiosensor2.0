@@ -28,6 +28,7 @@
 		367063A729DB40F0003F9CEE /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367063A629DB40EF003F9CEE /* DataController.swift */; };
 		367063AD29DB55F0003F9CEE /* NewNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367063AC29DB55F0003F9CEE /* NewNotification.swift */; };
 		36BE44B629E8453600FFA2E4 /* APTRegression 1 copy 13.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 36BE44B529E8453600FFA2E4 /* APTRegression 1 copy 13.mlmodel */; };
+		36BE44BA29E84B5C00FFA2E4 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BE44B929E84B5C00FFA2E4 /* ResourcesView.swift */; };
 		9096D906297C29580018DF54 /* BioSensorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D905297C29580018DF54 /* BioSensorApp.swift */; };
 		9096D908297C29580018DF54 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9096D907297C29580018DF54 /* ContentView.swift */; };
 		9096D90A297C295A0018DF54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9096D909297C295A0018DF54 /* Assets.xcassets */; };
@@ -75,6 +76,7 @@
 		367063A629DB40EF003F9CEE /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		367063AC29DB55F0003F9CEE /* NewNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotification.swift; sourceTree = "<group>"; };
 		36BE44B529E8453600FFA2E4 /* APTRegression 1 copy 13.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "APTRegression 1 copy 13.mlmodel"; sourceTree = "<group>"; };
+		36BE44B929E84B5C00FFA2E4 /* ResourcesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		9096D902297C29580018DF54 /* BioSensor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BioSensor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9096D905297C29580018DF54 /* BioSensorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioSensorApp.swift; sourceTree = "<group>"; };
 		9096D907297C29580018DF54 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				9096D905297C29580018DF54 /* BioSensorApp.swift */,
 				9096D907297C29580018DF54 /* ContentView.swift */,
 				366F3F74299D70CD000EB18D /* ProfileView.swift */,
+				36BE44B929E84B5C00FFA2E4 /* ResourcesView.swift */,
 				366F3F72299D6F43000EB18D /* NotificationPage.swift */,
 				367063AC29DB55F0003F9CEE /* NewNotification.swift */,
 				366F3F70299D6EC0000EB18D /* MeasurementPage.swift */,
@@ -345,6 +348,7 @@
 				0D8D5F7D29AF8EEA00A3D60D /* GoogleSignInButton.swift in Sources */,
 				366F3F68299D5E4C000EB18D /* BioSensor.xcdatamodeld in Sources */,
 				366F3F71299D6EC0000EB18D /* MeasurementPage.swift in Sources */,
+				36BE44BA29E84B5C00FFA2E4 /* ResourcesView.swift in Sources */,
 				0DD481FD29C0231C00EA26B3 /* AboutView.swift in Sources */,
 				9096D908297C29580018DF54 /* ContentView.swift in Sources */,
 				0DCC91CA29B6CBBC005A8394 /* UserAuth.swift in Sources */,
