@@ -19,83 +19,83 @@ struct Notification: View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack{
-                Text("Notifications")
-                    .bold()
-                    .font(.title)
-                    .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
-                    .onAppear {
-                        self.makeDefaultNotifs()
-                    }
-//                HStack{
-//                    Text("Reminders")
-//                        .font(.largeTitle)
-//                        .underline()
-//                        .padding()
-//                        .fontWeight(.medium)
-//                        .foregroundColor(Color.accentColor)
-//                }
+                HStack{
+                    Text("Notifications")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                        .frame(alignment: .center)
+                        .onAppear {
+                            self.makeDefaultNotifs()
+                        }
+                    NavigationLink(destination: NewNotification(), label: {
+                        Image(systemName: "plus.square")
+                    })
+                    .foregroundColor(Color.accentColor)
+                    .font(.system(size: 40))
+                    
+                    //                HStack{
+                    //                    Text("Reminders")
+                    //                        .font(.largeTitle)
+                    //                        .underline()
+                    //                        .padding()
+                    //                        .fontWeight(.medium)
+                    //                        .foregroundColor(Color.accentColor)
+                    //                }
+                }
                 
                     
-            List {
-                ForEach(notifs) { index in
-                    NavigationLink {
-                        ChangeNotification(notification: index)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, content: {
-                                Text(index.time?.formatted(date: .omitted, time: .shortened) ?? "Error")
-                                    .bold()
-                                    .font(.title)
-                                Text(index.title ?? "Label error")
-                                    .font(.body)
-                            })
+                List {
+                    ForEach(notifs) { index in
+                        NavigationLink {
+                            ChangeNotification(notification: index)
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, content: {
+                                    Text(index.time?.formatted(date: .omitted, time: .shortened) ?? "Error")
+                                        .bold()
+                                        .font(.title)
+                                    Text(index.title ?? "Label error")
+                                        .font(.body)
+                                })
+                                .listRowBackground(Color.clear)
+                                Toggle("", isOn: Binding(get: {index.isOn}, set: {_,_ in
+                                    if (index.isOn == true) {
+                                        index.isOn = false
+                                        
+                                        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [index.id!.uuidString])
+                                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [index.id!.uuidString])
+                                    }
+                                    else {
+                                        index.isOn = true
+                                        
+                                        let content = UNMutableNotificationContent()
+                                        content.title = "APTBiosensor"
+                                        content.subtitle = index.title!
+                                        content.sound = UNNotificationSound.default
+                                        
+                                        let dateComp = Calendar.current.dateComponents([.hour, .minute], from: index.time!)
+                                        
+                                        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+                                        let id = index.id
+                                        
+                                        let request = UNNotificationRequest(identifier: id!.uuidString, content: content, trigger: trigger)
+                                        
+                                        UNUserNotificationCenter.current().add(request)
+                                    }
+                                    try? moc.save()
+                                }))
+                            }
                             .listRowBackground(Color.clear)
-                            Toggle("", isOn: Binding(get: {index.isOn}, set: {_,_ in
-                                if (index.isOn == true) {
-                                    index.isOn = false
-                                    
-                                    UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [index.id!.uuidString])
-                                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [index.id!.uuidString])
-                                }
-                                else {
-                                    index.isOn = true
-                                    
-                                    let content = UNMutableNotificationContent()
-                                    content.title = "APTBiosensor"
-                                    content.subtitle = index.title!
-                                    content.sound = UNNotificationSound.default
-                                    
-                                    let dateComp = Calendar.current.dateComponents([.hour, .minute], from: index.time!)
-                                    
-                                    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
-                                    let id = index.id
-                                    
-                                    let request = UNNotificationRequest(identifier: id!.uuidString, content: content, trigger: trigger)
-                                    
-                                    UNUserNotificationCenter.current().add(request)
-                                }
-                                try? moc.save()
-                            }))
                         }
-                        .listRowBackground(Color.clear)
                     }
+                    .onDelete(perform: deleteNotifs)
+                    .listRowBackground(Color.clear)
                 }
-                .onDelete(perform: deleteNotifs)
-                .listRowBackground(Color.clear)
-            }
-            .scrollContentBackground(.hidden)
-            .padding()
-            .listRowBackground(Color.clear)
-
-                /*
-                List(notifs) {_ in
-                }
-                .listRowBackground(Color.clear)
                 .scrollContentBackground(.hidden)
-                .padding()
-                 */
+                .listRowBackground(Color.clear)
                 
-                
+                /*
                 HStack{
                     
                     /*
@@ -109,12 +109,7 @@ struct Notification: View {
                     .frame(width: 50, height: 50)
                     .foregroundColor(Color.accentColor)
                      */
-                    NavigationLink(destination: NewNotification(), label: {
-                        Image(systemName: "plus.square")
-                    })
-                    .font(.system(size: 40))
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(Color.accentColor)
+                    
                     
                     Button {
                         if (!notifs.isEmpty && notifs.endIndex > 1) {
@@ -134,10 +129,11 @@ struct Notification: View {
                     
                 }
                 .padding()
+                 */
 
             }
-            Spacer()
             /*
+            Spacer()
             Button(action: {
                 let content = UNMutableNotificationContent()
                 content.title = "Time to Measure!"
@@ -151,7 +147,7 @@ struct Notification: View {
             }) {
                 Text("Notification Demo")
             }
-             */
+            */
 
         }
     }
