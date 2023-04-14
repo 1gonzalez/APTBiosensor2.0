@@ -18,26 +18,42 @@ struct ChangeNotification: View {
         ZStack {
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack {
-                Text("Change Your Reminder")
-                    .font(.title)
-                    .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
-                    .bold()
+                Text("Edit Your Reminder")
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                    .shadow(radius: 1)
+                    .padding(.top)
                 Spacer()
-                Text("Would you like to change your reminder title?")
+                Text("Reminder Title")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .shadow(radius: 1)
+                    .padding(.top)
                     .onAppear {
                         date = notification.time!
                         label = notification.title!
                     }
                 TextField(notification.title!, text: $label)
                     .font(.title3)
-                    .frame(alignment: .center)
-                    .background(Color(red: 0.82, green: 0.88, blue: 0.92))
-                Text("Choose your time")
-                    .font(.title2)
-                    .frame(alignment: .leading)
+                    .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
+                    .background(.white)
+                    .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
+                    .multilineTextAlignment(.center)
+                    .cornerRadius(10)
+                    .padding(.bottom)
+                
+                Text("Reminder Time")
+                    .font(.title)
+                    .shadow(radius: 1)
+                    .foregroundColor(.white)
+                
                 DatePicker("", selection: $date, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.wheel)
                     .labelsHidden()
+                    .colorInvert()
+                    .colorMultiply(.white)
+                    .padding(.bottom)
+                
                 Button("Save", action: {
                     notification.title = label
                     notification.time = date
@@ -69,9 +85,18 @@ struct ChangeNotification: View {
                         print("error")
                     }
                 })
-                .frame(alignment: .bottomTrailing)
+                .lineLimit(1)
+                .fixedSize()
+                .font(.system(size: 18))
+                .padding(12)
+                .foregroundColor(.white)
+                .background(Color.accentColor)
+                .cornerRadius(10)
+                .shadow(radius: 2)
+                
                 Spacer()
             }
+            .padding()
         }
     }
 }

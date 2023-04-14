@@ -22,9 +22,8 @@ struct Notification: View {
                 HStack{
                     Text("Notifications")
                         .font(.largeTitle)
-                        .fontWeight(.heavy)
                         .foregroundColor(Color.white)
-                        .frame(alignment: .center)
+                        .shadow(radius: 1)
                         .onAppear {
                             self.makeDefaultNotifs()
                         }
@@ -43,6 +42,7 @@ struct Notification: View {
                     //                        .foregroundColor(Color.accentColor)
                     //                }
                 }
+                .padding(.top)
                 
                     
                 List {
@@ -53,10 +53,11 @@ struct Notification: View {
                             HStack {
                                 VStack(alignment: .leading, content: {
                                     Text(index.time?.formatted(date: .omitted, time: .shortened) ?? "Error")
-                                        .bold()
                                         .font(.title)
+                                        .shadow(radius: 0.5)
                                     Text(index.title ?? "Label error")
                                         .font(.body)
+                                        .shadow(radius: 0.5)
                                 })
                                 .listRowBackground(Color.clear)
                                 Toggle("", isOn: Binding(get: {index.isOn}, set: {_,_ in
@@ -93,6 +94,7 @@ struct Notification: View {
                     .listRowBackground(Color.clear)
                 }
                 .scrollContentBackground(.hidden)
+                .padding()
                 .listRowBackground(Color.clear)
                 
                 /*
