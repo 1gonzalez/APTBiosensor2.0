@@ -27,6 +27,9 @@ struct MainMenu: View {
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .foregroundColor(Color.orange)
+                    .onAppear{
+                        Measure()
+                    }
                 Spacer()
                 
                 Button(action: {
@@ -36,6 +39,7 @@ struct MainMenu: View {
                     tilt.pitch = pelvicTilt
                     tilt.roll = pelvicRoll
                     tilt.dateTime = Date.now
+                    print(tilt)
                     
                     do{
                         try moc.save()

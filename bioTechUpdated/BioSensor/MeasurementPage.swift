@@ -148,7 +148,7 @@ struct listView:View{
                     Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
                     VStack{
                         List {
-                            ForEach(fetchRequest) { item in
+                            ForEach(fetchRequest, id:\.id) { item in
                                 NavigationLink {
                                     MLPredictedData(x:item.roll, y: item.pitch)
                                 } label: {
