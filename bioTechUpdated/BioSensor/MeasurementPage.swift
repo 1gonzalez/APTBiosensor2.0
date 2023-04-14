@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Charts
 import CoreData
+import CoreML
 
 /*
  ToDo: Currently pending on determining how the data is saved.
@@ -50,7 +51,7 @@ struct Measurement: View {
 struct measurementData{
     let id = UUID()
     //let date= Date.now.formatted()    Uncomment when implementing
-    let date:Date
+    let date: String
     let data: String
 }
 
@@ -67,11 +68,10 @@ struct measurementRow:View{
 }
 
 struct listView:View{
+    @Environment(\.managedObjectContext) private var viewContext
     var dateFilter:Binding<Date>
     var dateSelected:Date
     @FetchRequest var fetchRequest: FetchedResults<Tilt>
-    
-    
     
     init(dateFilter:Binding<Date>){
         self.dateFilter = dateFilter
@@ -89,7 +89,7 @@ struct listView:View{
                     ) ?? Date.now) as CVarArg))
     }
 
-    @Environment(\.managedObjectContext) private var viewContext
+   
     
     var body:some View{
         let ave:Double = Double(fetchRequest.map{$0.pitch}.reduce(0.00,+) / Double(fetchRequest.count))
@@ -148,13 +148,13 @@ struct listView:View{
                     Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
                     VStack{
                         List {
-                            ForEach(fetchRequest) { item in
+                            ForEach(fetchRequest, id:\.self) { item in
                                 NavigationLink {
                                     MLPredictedData(x:item.roll, y: item.pitch)
                                 } label: {
                                     HStack{
                                         Text((item.dateTime ?? Date.now).formatted())
-                                            .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
+                                           .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
                                         Spacer()
                                         Text("\(item.pitch,format: .number.precision(.fractionLength(2)))°")
                                             .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
@@ -261,7 +261,10 @@ struct MLPredictedData:View{
     }
     
     private func predict1(RightX:Double, RightY: Double)->String{
-        let model = APTRegression_1_copy_13()
+        let config = MLModelConfiguration()
+        guard let model = try? APTRegression_1_copy_13(configuration:config) else{
+            return "Error: Can't compute"
+        }
         guard let modeloutput = try? model.prediction(HipRightX:RightX,HipRightYAngle:RightY*180/3.1415)
         else {
             return "Error: Can't compute"

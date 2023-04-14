@@ -89,5 +89,9 @@ struct MainMenu: View {
                     }
                 }
         }
+        else{
+            self.pelvicTilt = Double.random(in: 1...30)
+            self.pelvicRoll = Double.random(in: 1...30)
+        }
     }
 }
