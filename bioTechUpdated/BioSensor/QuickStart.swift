@@ -9,28 +9,29 @@ import Foundation
 import SwiftUI
 
 struct QuickStartGuideView: View {
+    
     var body: some View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack {
                 
                 Image(systemName: "minus")
-
                     .font(.system(size: 60))
                     .padding(.bottom)
                 
                 Text("Quick Start Guide")
                     .font(.largeTitle)
-                    .underline()
                     .padding()
-                    .foregroundColor(Color.accentColor)
+                    .foregroundColor(.white)
+                    .shadow(radius: 1)
                 
                 Text("Ensure device is positioned on your right leg 10 cm below your pelvic bone \n \nThe screen should be facing away from your leg pointed down towards the front of the knee \n \nAlways use the same position every time you take a measurement")
-                    .font(.title3)
-                    .fontWeight(.medium)
+                    .font(.title2)
                     .multilineTextAlignment(.leading)
                     .padding()
                     .fixedSize(horizontal:false, vertical:true)
+                    .foregroundColor(.white)
+                    .shadow(radius: 1)
                 
                 Image("APTGuide")
                     .resizable()

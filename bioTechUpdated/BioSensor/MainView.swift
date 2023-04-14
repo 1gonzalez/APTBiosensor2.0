@@ -16,22 +16,25 @@ struct MainMenu: View {
     var motion = CMMotionManager()
     let conVal = 180/Double.pi
     @State var pelvicTilt:Double = 0.0
+    @State var pelvicRoll:Double = 0.0
+    
     var body: some View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack {
-                //                Spacer()
-                //                Text("APT BioSensor")
-                //                    .font(.largeTitle)
-                //                    .fontWeight(.heavy)
-                //                    .foregroundColor(Color.orange)
-                //                Spacer()
+                Spacer()
+                Text("APT BioSensor")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color.orange)
+                Spacer()
                 
                 Button(action: {
                     print("Pressed!")
                     Measure()
                     let tilt = Tilt(context: moc)
                     tilt.pitch = pelvicTilt
+                    tilt.roll = pelvicRoll
                     tilt.dateTime = Date.now
                     
                     do{
@@ -42,9 +45,9 @@ struct MainMenu: View {
                     }
                 }){
                     Text("Tap to Measure")
+                        .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
                         .font(.system(size: 60, weight: Font.Weight.bold))
                         .frame(width: 350, height: 350)
-                        .foregroundColor(Color(red: 0.98, green: 0.69, blue: 0.27))
                         .background(Color(red: 0.82, green: 0.88, blue: 0.92))
                         .clipShape(Circle())
                         .shadow(radius: 20)
@@ -56,23 +59,17 @@ struct MainMenu: View {
                 Button("Quick Start Guide") {
                     showingPopup = true
                 }
-                
-                .lineLimit(1)
-                .fixedSize()
-                .font(.system(size: 14))
-                .padding()
-                .foregroundColor(.white)
-                .background(Color.accentColor)
-                .cornerRadius(10)
-                .padding()
-                .onTapGesture {
-                    self.tabSelection=4
-                }
-                .popover(isPresented: $showingPopup, arrowEdge: .bottom) {
-                    QuickStartGuideView()
-                    //Text("test")
-                    //.frame(width: 100, height: 100)
-                }
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .underline()
+                    .onTapGesture {
+                        self.tabSelection=4
+                    }
+                    .popover(isPresented: $showingPopup, arrowEdge: .bottom) {
+                        QuickStartGuideView()
+                        //Text("test")
+                        //.frame(width: 100, height: 100)
+                    }
                 Spacer()
             }
         }
@@ -87,6 +84,7 @@ struct MainMenu: View {
                 to: .main) {(data, error) in
                     if let trueData = data{
                         self.pelvicTilt = 85 - abs(trueData.attitude.pitch * self.conVal)
+                        self.pelvicRoll = 85 - abs(trueData.attitude.roll * self.conVal)
                         //Double(Int(10*(90-abs(trueData.attitude.yaw*self.conVal))))/10
                     }
                 }

@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import UserNotifications
+import GoogleSignIn
 
 @main
 struct BioSensorApp: App {
@@ -34,6 +35,11 @@ struct BioSensorApp: App {
             } else {
                 ContentView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .onAppear {
+                        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                            print("Error: \(String(describing: error))")
+                        }
+                    }
             }
         }
     }

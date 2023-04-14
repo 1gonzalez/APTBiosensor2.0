@@ -35,6 +35,8 @@ struct UserAuth {
                 return
             }
             
+            let fullName = user.profile?.name
+            
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: user.accessToken.tokenString)
             

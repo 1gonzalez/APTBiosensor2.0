@@ -8,80 +8,101 @@
 import Foundation
 import SwiftUI
 import UserNotifications
+import CoreData
 
-
+//Gotta fix background
 struct Notification: View {
-    @Binding var currentDate:Date
-    @State private var notify = false
-    let content = UNMutableNotificationContent()
+    @FetchRequest(sortDescriptors: []) var notifs: FetchedResults<Notifications>
+    @Environment(\.managedObjectContext) var moc
+    
     var body: some View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack{
+                HStack{
+                    Text("Notifications")
+                        .font(.largeTitle)
+                        .foregroundColor(Color.white)
+                        .shadow(radius: 1)
+                        .onAppear {
+                            self.makeDefaultNotifs()
+                        }
+                    NavigationLink(destination: NewNotification(), label: {
+                        Image(systemName: "plus.square")
+                    })
+                    .foregroundColor(Color.accentColor)
+                    .font(.system(size: 40))
+                    
+                    //                HStack{
+                    //                    Text("Reminders")
+                    //                        .font(.largeTitle)
+                    //                        .underline()
+                    //                        .padding()
+                    //                        .fontWeight(.medium)
+                    //                        .foregroundColor(Color.accentColor)
+                    //                }
+                }
+                .padding(.top)
                 
-//                HStack{
-//                    Text("Reminders")
-//                        .font(.largeTitle)
-//                        .underline()
-//                        .padding()
-//                        .fontWeight(.medium)
-//                        .foregroundColor(Color.accentColor)
-//                }
-                
-                
+                    
                 List {
-                    HStack{
-                        DatePicker("",
-                                   selection: $currentDate,displayedComponents: .hourAndMinute)
-                        .labelsHidden()
-                        .frame(width: 150, height: 80, alignment: .leading)
-                        .clipped()
-                        Spacer()
-                        Toggle(isOn: $notify) {
-                            if notify {
-                                Text("Hello World")
+                    ForEach(notifs) { index in
+                        NavigationLink {
+                            ChangeNotification(notification: index)
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, content: {
+                                    Text(index.time?.formatted(date: .omitted, time: .shortened) ?? "Error")
+                                        .font(.title)
+                                        .shadow(radius: 0.5)
+                                    Text(index.title ?? "Label error")
+                                        .font(.body)
+                                        .shadow(radius: 0.5)
+                                })
+                                .listRowBackground(Color.clear)
+                                Toggle("", isOn: Binding(get: {index.isOn}, set: {_,_ in
+                                    if (index.isOn == true) {
+                                        index.isOn = false
+                                        
+                                        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [index.id!.uuidString])
+                                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [index.id!.uuidString])
+                                    }
+                                    else {
+                                        index.isOn = true
+                                        
+                                        let content = UNMutableNotificationContent()
+                                        content.title = "APTBiosensor"
+                                        content.subtitle = index.title!
+                                        content.sound = UNNotificationSound.default
+                                        
+                                        let dateComp = Calendar.current.dateComponents([.hour, .minute], from: index.time!)
+                                        
+                                        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+                                        let id = index.id
+                                        
+                                        let request = UNNotificationRequest(identifier: id!.uuidString, content: content, trigger: trigger)
+                                        
+                                        UNUserNotificationCenter.current().add(request)
+                                    }
+                                    try? moc.save()
+                                }))
                             }
+                            .listRowBackground(Color.clear)
                         }
                     }
-                    .listRowBackground(Color.clear)
-                    HStack{
-                        DatePicker("",
-                                   selection: $currentDate,displayedComponents: .hourAndMinute)
-                        .labelsHidden()
-                        .frame(width: 150, height: 80, alignment: .leading)
-                        .clipped()
-                        Spacer()
-                        Toggle(isOn: $notify) {}
-                            .onChange(of: notify) { value in
-                                let date = Date.now
-                                content.title = "Time to Measure!"
-                                content.subtitle = "Click here to open APTBiosensor and complete your measurement."
-                                
-                                var dateComponents = DateComponents()
-                                dateComponents.calendar = Calendar.current
-                                
-                                dateComponents.hour = Calendar.current.component(.hour, from: date)
-                                dateComponents.minute = 47
-                                //dateComponents.minute = Calendar.current.component(.minute, from: date)
-                                
-                                let trigger = UNCalendarNotificationTrigger(
-                                         dateMatching: dateComponents, repeats: true)
-                                
-                                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                                
-                                UNUserNotificationCenter.current().add(request)
-                                
-                            }
-                    }
+                    .onDelete(perform: deleteNotifs)
                     .listRowBackground(Color.clear)
                 }
                 .scrollContentBackground(.hidden)
                 .padding()
+                .listRowBackground(Color.clear)
                 
-                
+                /*
                 HStack{
                     
+                    /*
                     Button {
+                        NewNotification()
                         print("Plus tapped!")
                     } label: {
                         Image(systemName: "plus.square")
@@ -89,9 +110,18 @@ struct Notification: View {
                     .font(.system(size: 40))
                     .frame(width: 50, height: 50)
                     .foregroundColor(Color.accentColor)
+                     */
+                    
                     
                     Button {
-                        print("Minus tapped!")
+                        if (!notifs.isEmpty && notifs.endIndex > 1) {
+                            let toDelete = notifs.last?.id?.uuidString
+                            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [toDelete!])
+                            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [toDelete!])
+                            moc.delete(notifs[notifs.endIndex - 1])
+                            
+                            try? moc.save()
+                        }
                     } label: {
                         Image(systemName: "minus.square")
                     }
@@ -101,8 +131,10 @@ struct Notification: View {
                     
                 }
                 .padding()
+                 */
 
             }
+            /*
             Spacer()
             Button(action: {
                 let content = UNMutableNotificationContent()
@@ -117,27 +149,47 @@ struct Notification: View {
             }) {
                 Text("Notification Demo")
             }
+            */
 
         }
     }
+    
+    private func deleteNotifs(at offsets: IndexSet) {
+        for offset in offsets {
+            let notif = notifs[offset]
+            moc.delete(notif)
+        }
+        
+        try? moc.save()
+    }
+    
+    private func makeDefaultNotifs() {
+        if (notifs.isEmpty) {
+            let notification = Notifications(context: moc)
+            notification.id = UUID()
+            notification.title = "Click here to take your measurement!"
+            notification.isOn = true
+            notification.time = Date.now
+            
+            do {
+                try moc.save()
+            } catch {
+                print("error")
+            }
+            
+            let content = UNMutableNotificationContent()
+            content.title = "APTBiosensor"
+            content.subtitle = notification.title!
+            content.sound = UNNotificationSound.default
+            
+            let dateComp = Calendar.current.dateComponents([.hour, .minute], from: notification.time!)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+            let id = notification.id
+            
+            let request = UNNotificationRequest(identifier: id!.uuidString, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request)
+        }
+    }
 }
-
-/*
- Use the following for when implemeting in iOS 14 and lower
- 
- struct ContentView: View {
-     @State private var isToggle : Bool = false {
-             didSet {
-                 print("value did change")
-             }
-     }
-
-     var body: some View {
-         Toggle(isOn: self.$isToggle){
-                     Text("Toggle Label ")
-          }
-     }
- 
- 
- also refer to here https://stackoverflow.com/questions/56996272/how-can-i-trigger-an-action-when-a-swiftui-toggle-is-toggled
- }*/
