@@ -22,6 +22,13 @@ struct MainMenu: View {
         ZStack{
             Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
             VStack {
+                Spacer()
+                Text("APT BioSensor")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color.orange)
+                Spacer()
+                
                 Button(action: {
                     print("Pressed!")
                     Measure()
@@ -49,21 +56,20 @@ struct MainMenu: View {
                 .frame(maxHeight: .infinity)
                 Spacer()
                 
-                Button(action: {showingPopup = true}, label: {Text("Quick Start Guide")})
-                .lineLimit(1)
-                .fixedSize()
-                .font(.system(size: 14))
-                .padding()
-                .foregroundColor(.white)
-                .background(Color.accentColor)
-                .cornerRadius(10)
-                .padding()
-                .onTapGesture {
-                    self.tabSelection=4
+                Button("Quick Start Guide") {
+                    showingPopup = true
                 }
-                .popover(isPresented: $showingPopup, arrowEdge: .bottom) {
-                    QuickStartGuideView()
-                }
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .underline()
+                    .onTapGesture {
+                        self.tabSelection=4
+                    }
+                    .popover(isPresented: $showingPopup, arrowEdge: .bottom) {
+                        QuickStartGuideView()
+                        //Text("test")
+                        //.frame(width: 100, height: 100)
+                    }
                 Spacer()
             }
         }

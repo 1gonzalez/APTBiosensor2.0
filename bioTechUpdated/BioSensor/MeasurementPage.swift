@@ -117,28 +117,57 @@ struct listView:View{
                     .border(Color.blue, width: 2)
             }
             .frame(width: UIScreen.main.bounds.width*7/8, height: UIScreen.main.bounds.height*1/3)
-            .chartYAxis {
-                        AxisMarks(position: .leading)
-                    }
-            .chartYScale(domain: 0...35)
-            .clipped(antialiased:true)
-            Spacer()
-            
-            NavigationView {
-                List {
-                    ForEach(fetchRequest) { item in
-                        NavigationLink {
-                            MLPredictedData(x:item.roll, y: item.pitch)
-                        } label: {
-                            HStack{
-                                Text((item.dateTime ?? Date.now).formatted())
-                                Spacer()
-                                Text("\(item.pitch,format: .number.precision(.fractionLength(2)))°")
-                            }
-                            
+            .chartXAxis {
+                AxisMarks(position: .bottom){ value in
+                    AxisValueLabel() {
+                        if let intValue = value.as(String.self) {
+                            Text("\(intValue)")
+                                .font(.system(size: 12))
+                                .foregroundColor(.white)
                         }
                     }
-                    .onDelete(perform: deleteItems)
+                    
+                }
+            }
+            .chartYAxis {
+                AxisMarks(position: .leading){ value in
+                    AxisValueLabel() {
+                        if let intValue = value.as(Int.self) {
+                            Text("\(intValue)")
+                                .font(.system(size: 12))
+                                .foregroundColor(.white)
+                        }
+                    }
+                }
+            }
+            .chartYScale(domain: 0...35)
+            .clipped(antialiased:true)
+            
+            NavigationView {
+                ZStack{
+                    Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
+                    VStack{
+                        List {
+                            ForEach(fetchRequest) { item in
+                                NavigationLink {
+                                    MLPredictedData(x:item.roll, y: item.pitch)
+                                } label: {
+                                    HStack{
+                                        Text((item.dateTime ?? Date.now).formatted())
+                                            .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
+                                        Spacer()
+                                        Text("\(item.pitch,format: .number.precision(.fractionLength(2)))°")
+                                            .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
+                                        Spacer()
+                                    }
+                                    
+                                }
+                            }
+                            .onDelete(perform: deleteItems)
+                            .listRowBackground(Color.clear)
+                        }
+                        .scrollContentBackground(.hidden)
+                    }
                 }
                 /*
                 .toolbar {
@@ -153,6 +182,7 @@ struct listView:View{
                 }
                 Text("Select an item")*/
             }
+            .padding(.leading)
         }
     }
     
@@ -208,22 +238,25 @@ struct MLPredictedData:View{
     var y:Double
     var AIImage: Image = Image(systemName: "figure.mind.and.body")
     var body:some View{
-        VStack{
-            Text("AI Prediction")
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-            Spacer()
-            /*
-            AIImage
-                .resizable()
-                .frame(width: 100, height: 100)
-                .shadow(radius: 10)
-                .foregroundColor(.accentColor)
-             */
-            Spacer()
-            Text(predict1(RightX:x,RightY:y) + "°").font(.custom("Test", size: 80))
+        ZStack{
+            Color(red: 0.50, green: 0.82, blue: 0.96).edgesIgnoringSafeArea(.all)
+            VStack{
+                Text("AI Prediction")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
                 Spacer()
-            Spacer()
+                /*
+                 AIImage
+                 .resizable()
+                 .frame(width: 100, height: 100)
+                 .shadow(radius: 10)
+                 .foregroundColor(.accentColor)
+                 */
+                Spacer()
+                Text(predict1(RightX:x,RightY:y) + "°").font(.custom("Test", size: 80))
+                Spacer()
+                Spacer()
+            }
         }
     }
     

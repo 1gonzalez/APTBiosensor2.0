@@ -21,7 +21,6 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationView {
-            
             ZStack {
                 Color(red: 0.50, green: 0.82, blue: 0.96)
                     .edgesIgnoringSafeArea(.all)
