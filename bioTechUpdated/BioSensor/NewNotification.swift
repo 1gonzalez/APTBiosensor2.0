@@ -13,6 +13,7 @@ struct NewNotification: View {
     @State private var date = Date.now
     let content = UNMutableNotificationContent()
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     
     var body: some View {
@@ -82,6 +83,7 @@ struct NewNotification: View {
                     catch{
                         print("error")
                     }
+                    self.mode.wrappedValue.dismiss()
                 }
                 .lineLimit(1)
                 .fixedSize()
@@ -93,6 +95,7 @@ struct NewNotification: View {
                 .shadow(radius: 2)
                     //.padding()
                     //.frame(alignment: .center)
+                
                 Spacer()
                 Spacer()
             }

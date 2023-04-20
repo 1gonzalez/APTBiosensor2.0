@@ -15,14 +15,14 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         
         let newItem = Tilt(context:viewContext)
-        /*
+       
         for _ in 0..<1 {
             let newItem = Tilt(context: viewContext)
-            newItem.dateTime = Date()
+            newItem.dateTime = Date(timeIntervalSince1970: TimeInterval(0))
             newItem.pitch = -360
             newItem.id = UUID()
         }
-         */
+    
         do {
             try viewContext.save()
         } catch {

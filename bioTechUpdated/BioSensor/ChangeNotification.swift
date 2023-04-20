@@ -13,6 +13,7 @@ struct ChangeNotification: View {
     @State var label:String = ""
     @State var date:Date = Date.now
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         ZStack {
@@ -84,6 +85,8 @@ struct ChangeNotification: View {
                     catch{
                         print("error")
                     }
+                    
+                    self.mode.wrappedValue.dismiss()
                 })
                 .lineLimit(1)
                 .fixedSize()
