@@ -51,7 +51,7 @@ struct Measurement: View {
 struct measurementData{
     let id = UUID()
     //let date= Date.now.formatted()    Uncomment when implementing
-    let date:String
+    let date: String
     let data: String
 }
 
@@ -72,7 +72,6 @@ struct listView:View{
     var dateFilter:Binding<Date>
     var dateSelected:Date
     @FetchRequest var fetchRequest: FetchedResults<Tilt>
-    
     
     init(dateFilter:Binding<Date>){
         self.dateFilter = dateFilter
@@ -153,7 +152,7 @@ struct listView:View{
                                 } label: {
                                     HStack{
                                         Text((item.dateTime ?? Date.now).formatted())
-                                            .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
+                                           .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
                                         Spacer()
                                         Text("\(item.pitch,format: .number.precision(.fractionLength(2)))°")
                                             .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
@@ -261,9 +260,9 @@ struct MLPredictedData:View{
     
     private func predict1(RightX:Double, RightY: Double)->String{
         let config = MLModelConfiguration()
-                guard let model = try? APTRegression_1_copy_13(configuration:config) else{
-                    return "Error: Can't compute"
-                }
+        guard let model = try? APTRegression_1_copy_13(configuration:config) else{
+            return "Error: Can't compute"
+        }
         guard let modeloutput = try? model.prediction(HipRightX:RightX,HipRightYAngle:RightY*180/3.1415)
         else {
             return "Error: Can't compute"
