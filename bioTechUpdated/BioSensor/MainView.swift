@@ -91,10 +91,6 @@ struct MainMenu: View {
                         self.pelvicRoll = 85 - abs(trueData.attitude.roll * self.conVal)
                         //Double(Int(10*(90-abs(trueData.attitude.yaw*self.conVal))))/10
                     }
-                    else{
-                        self.pelvicTilt = Double.random(in: 1...30)
-                        self.pelvicRoll = Double.random(in: 1...30)
-                    }
                 }
         }
         else{
