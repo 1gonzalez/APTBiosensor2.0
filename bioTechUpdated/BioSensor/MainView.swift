@@ -27,6 +27,9 @@ struct MainMenu: View {
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .foregroundColor(Color.orange)
+                    .onAppear{
+                        Measure()
+                    }
                 Spacer()
                 
                 Button(action: {
@@ -36,6 +39,7 @@ struct MainMenu: View {
                     tilt.pitch = pelvicTilt
                     tilt.roll = pelvicRoll
                     tilt.dateTime = Date.now
+                    print(tilt)
                     
                     do{
                         try moc.save()
@@ -86,6 +90,10 @@ struct MainMenu: View {
                         self.pelvicTilt = 85 - abs(trueData.attitude.pitch * self.conVal)
                         self.pelvicRoll = 85 - abs(trueData.attitude.roll * self.conVal)
                         //Double(Int(10*(90-abs(trueData.attitude.yaw*self.conVal))))/10
+                    }
+                    else{
+                        self.pelvicTilt = Double.random(in: 1...30)
+                        self.pelvicRoll = Double.random(in: 1...30)
                     }
                 }
         }

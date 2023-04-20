@@ -89,8 +89,6 @@ struct listView:View{
                     ) ?? Date.now) as CVarArg))
     }
 
-   
-    
     var body:some View{
         let ave:Double = Double(fetchRequest.map{$0.pitch}.reduce(0.00,+) / Double(fetchRequest.count))
         VStack{

@@ -22,6 +22,7 @@ struct PersistenceController {
             newItem.pitch = -360
             newItem.id = UUID()
         }
+
         do {
             try viewContext.save()
         } catch {
