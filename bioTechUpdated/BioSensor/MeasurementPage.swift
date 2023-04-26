@@ -156,13 +156,13 @@ struct listView:View{
                                         Spacer()
                                         Text("\(item.pitch,format: .number.precision(.fractionLength(2)))°")
                                             .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
-                                        Spacer()
                                     }
-                                    
                                 }
                             }
                             .onDelete(perform: deleteItems)
-                            .listRowBackground(Color.clear)
+                            .listRowBackground(Color.white)
+                            .foregroundColor(Color(red: 0.13, green: 0.63, blue: 0.85))
+
                         }
                         .scrollContentBackground(.hidden)
                     }
